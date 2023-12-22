@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:location/models/habitation.dart';
+import 'package:location/models/habitation.dart' as models;
 import 'package:location/models/type_habitat.dart';
+import 'package:location/services/habitation_service.dart';
 import 'package:location/share/location_style.dart';
 import 'package:location/share/location_text_style.dart';
+import 'package:location/views/habitation_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,23 +28,15 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  final HabitationService service = HabitationService();
   final String title;
-  MyHomePage({required this.title, Key? key}) : super(key: key);
+  late List<TypeHabitat> _typehabitats;
+  late List<Habitation> _habitations;
+  MyHomePage({required this.title, Key? key}) : super(key: key) {
+    _habitations = service.getHabitationsTop10();
+    _typehabitats = service.getTypeHabitats();
+  }
 
-  final _typehabitats = [
-    TypeHabitat(1, "Maison"),
-    TypeHabitat(2, "Appartement")
-  ];
-  final _habitations = [
-    Habitation(1, "maison.png", "Maison méditerranéenne",
-        "12 Rue du Coq qui chante", 3, 92, 600),
-    Habitation(
-        2, "appartement.png", "Appartement neuf", "Rue de la soif", 1, 50, 555),
-    Habitation(3, "appartement.png", "Appartement 1", "Rue 1", 1, 51, 401),
-    Habitation(4, "appartement.png", "Appartement 2", "Rue 2", 1, 52, 402),
-    Habitation(5, "maison.png", "Maison 1", "Rue M1", 3, 101, 701),
-    Habitation(6, "maison.png", "Maison 2", "Rue M2", 3, 102, 702),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +47,7 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 30),
-            _buildTypeHabitat(),
+            _buildTypeHabitat(context),
             SizedBox(height: 20),
             _buildDerniereLocation(context),
           ],
@@ -62,7 +56,7 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
-  _buildTypeHabitat() {
+  _buildTypeHabitat(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(6.0),
       height: 100,
@@ -70,13 +64,13 @@ class MyHomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List.generate(
           _typehabitats.length,
-          (index) => _buildHabitat(_typehabitats[index]),
+          (index) => _buildHabitat(context, _typehabitats[index]),
         ),
       ),
     );
   }
 
-  _buildHabitat(TypeHabitat typeHabitat) {
+  _buildHabitat(BuildContext context, TypeHabitat typeHabitat) {
     var icon = Icons.house;
     switch (typeHabitat.id) {
       // case 1: House
@@ -94,20 +88,29 @@ class MyHomePage extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         margin: EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              color: Colors.white70,
-            ),
-            SizedBox(width: 5),
-            Text(
-              typeHabitat.libelle,
-              style: LocationTextStyle.regularWhiteTextStyle,
-            ),
-          ],
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HabitationList(typeHabitat.id == 1),
+                ));
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                color: Colors.white70,
+              ),
+              SizedBox(width: 5),
+              Text(
+                typeHabitat.libelle,
+                style: LocationTextStyle.regularWhiteTextStyle,
+              ),
+            ],
+          ),
         ),
       ),
     );
