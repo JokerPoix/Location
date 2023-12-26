@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:location/services/habitation_service.dart';
 import 'package:location/share/location_style.dart';
+import 'package:location/views/share/habitation_features_widget.dart';
 import 'package:location/views/share/habitation_option.dart';
 
 class HabitationDetails extends StatefulWidget {
@@ -34,17 +35,7 @@ class _HabitationDetailsState extends State<HabitationDetails> {
             margin: EdgeInsets.all(8.0),
             child: Text(widget._habitation.adresse),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              HabitationOption(
-                  Icons.group, "${widget._habitation.nbpersonnes} personnes"),
-              HabitationOption(
-                  Icons.bed, "${widget._habitation.chambres} chambres"),
-              HabitationOption(
-                  Icons.fit_screen, "${widget._habitation.superficie} m²"),
-            ],
-          ),
+          HabitationFeaturesWidget(widget._habitation),
           _buildRentButton(),
         ],
       ),
