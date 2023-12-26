@@ -36,6 +36,8 @@ class _HabitationDetailsState extends State<HabitationDetails> {
             child: Text(widget._habitation.adresse),
           ),
           HabitationFeaturesWidget(widget._habitation),
+          _buildItems(),
+          _buildOptionsPayantes(),
           _buildRentButton(),
         ],
       ),
