@@ -1,4 +1,4 @@
-import 'package:locations/models/typehabitat.dart';
+import 'package:location/models/type_habitat.dart';
 
 class TypehabitatData {
   static final data = [
