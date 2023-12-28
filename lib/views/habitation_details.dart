@@ -75,4 +75,19 @@ class _HabitationDetailsState extends State<HabitationDetails> {
       ),
     );
   }
+
+  _buildItems() {
+    var width = (MediaQuery.of(context).size.width / 2) - 15;
+
+    return Wrap(
+      spacing: 2.0,
+      children: Iterable.generate(
+        widget._habitation.options.length,
+        (i) => Container(
+          padding: EdgeInsets.only(left: 2.0),
+          margin: EdgeInsets.all(2.0),
+        ).toList(),
+      ),
+    );
+  }
 }
