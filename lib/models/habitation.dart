@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:location/models/type_habitat.dart';
 
 class Habitation {
