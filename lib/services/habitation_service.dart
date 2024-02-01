@@ -1,21 +1,7 @@
+import 'package:location/models/habitation.dart';
 import 'package:location/models/habitations_data.dart';
 import 'package:location/models/type_habitat.dart';
 import 'package:location/models/typehabitat_data.dart';
-
-class Habitation {
-  int id;
-  TypeHabitat typeHabitat;
-  String image;
-  String libelle;
-  String adresse;
-  int nbpersonnes;
-  int chambres;
-  int superficie;
-  double prixmois;
-
-  Habitation(this.id, this.typeHabitat, this.image, this.libelle, this.adresse,
-      this.nbpersonnes, this.chambres, this.superficie, this.prixmois);
-}
 
 class HabitationService {
   var _typehabitats;

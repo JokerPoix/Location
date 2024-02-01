@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:location/services/habitation_service.dart';
+import 'package:location/models/habitation.dart';
 import 'package:location/share/location_style.dart';
+import 'package:location/share/location_text_style.dart';
 import 'package:location/views/share/habitation_features_widget.dart';
 import 'package:location/views/share/habitation_option.dart';
 
@@ -36,8 +37,21 @@ class _HabitationDetailsState extends State<HabitationDetails> {
             child: Text(widget._habitation.adresse),
           ),
           HabitationFeaturesWidget(widget._habitation),
-          _buildItems(),
-          _buildOptionsPayantes(),
+          SizedBox(
+            height: 8.0,
+          ),
+          Container(
+            color: Colors.grey[200],
+            margin: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                CustomDivider(name: 'Inclus'),
+                _buildItems(),
+                CustomDivider(name: 'Options'),
+                _buildOptionsPayantes(),
+              ],
+            ),
+          ),
           _buildRentButton(),
         ],
       ),
@@ -79,27 +93,74 @@ class _HabitationDetailsState extends State<HabitationDetails> {
   _buildItems() {
     var width = (MediaQuery.of(context).size.width / 2) - 15;
     return Wrap(
-      spacing: 2.0,
       children: Iterable.generate(
         widget._habitation.options.length,
         (i) => Container(
-          padding: EdgeInsets.only(left: 2.0),
-          margin: EdgeInsets.all(2.0),
-        ).toList(),
-      ),
+          width: width,
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(widget._habitation.options[i].libelle),
+              Text(
+                widget._habitation.options[i].description,
+                style: LocationTextStyle.regularGreyTextStyle,
+              ),
+            ],
+          ),
+        ),
+      ).toList(),
     );
   }
 
   _buildOptionsPayantes() {
     var width = (MediaQuery.of(context).size.width / 2) - 15;
     return Wrap(
-      spacing: 2.0,
       children: Iterable.generate(
         widget._habitation.optionspayantes.length,
         (i) => Container(
-          padding: EdgeInsets.only(left: 2.0),
-          margin: EdgeInsets.all(2.0),
-        ).toList(),
+          width: width,
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(widget._habitation.optionspayantes[i].libelle),
+              Text(
+                widget._habitation.optionspayantes[i].prix.toString(),
+                style: LocationTextStyle.regularGreyTextStyle,
+              ),
+            ],
+          ),
+        ),
+      ).toList(),
+    );
+  }
+}
+
+class CustomDivider extends StatelessWidget {
+  const CustomDivider({
+    super.key,
+    required this.name,
+  });
+  final String name;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 36,
+      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      child: Row(
+        children: [
+          Text(
+            name,
+            style: LocationTextStyle.subtitleBoldTextStyle,
+          ),
+          SizedBox(
+            width: 8.0,
+          ),
+          Expanded(
+            child: Divider(),
+          ),
+        ],
       ),
     );
   }

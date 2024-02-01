@@ -33,7 +33,7 @@ class Habitation {
 
   Habitation.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        typeHabitat = TypeHabitat.fromJson(json['typeHabitat']),
+        typeHabitat = TypeHabitat.fromJson(json['typehabitat']),
         image = json['image'],
         libelle = json['libelle'],
         adresse = json['adresse'],
@@ -46,7 +46,7 @@ class Habitation {
         options = (json['items'] as List)
             .map((item) => Option.fromJson(item))
             .toList(),
-        optionspayantes = (json['optionspayantes'] as List)
+        optionspayantes = (json['optionpayantes'] as List)
             .map((item) => OptionPayante.fromJson(item))
             .toList();
 }
@@ -71,5 +71,5 @@ class OptionPayante extends Option {
   //     {super.description = "", this.prix = 0});
   OptionPayante.fromJson(Map<String, dynamic> json)
       : prix = json['prix'],
-        super.fromJson(json);
+        super.fromJson(json['optionpayante']);
 }
