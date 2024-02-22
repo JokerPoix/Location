@@ -9,8 +9,7 @@ import 'package:location/views/share/habitation_option.dart';
 
 class HabitationDetails extends StatefulWidget {
   final Habitation _habitation;
-
-  const HabitationDetails(this._habitation, {Key? key}) : super(key: key);
+  const HabitationDetails(this._habitation, {super.key});
 
   @override
   State<HabitationDetails> createState() => _HabitationDetailsState();
@@ -83,7 +82,8 @@ class _HabitationDetailsState extends State<HabitationDetails> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ResaLocation()),
+                  MaterialPageRoute(
+                      builder: (context) => ResaLocation(widget._habitation)),
                 );
               },
               child: Text('Louer'),

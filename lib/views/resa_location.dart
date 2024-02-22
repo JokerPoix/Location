@@ -4,7 +4,8 @@ import 'package:location/colors.dart';
 import 'package:location/models/habitation.dart';
 
 class ResaLocation extends StatefulWidget {
-  const ResaLocation({super.key});
+  final Habitation habitation;
+  const ResaLocation(this.habitation, {super.key});
 
   @override
   State<ResaLocation> createState() => _ResaLocationState();
@@ -22,12 +23,14 @@ class _ResaLocationState extends State<ResaLocation> {
   DateTime dateFin = DateTime.now();
   String nbPersonnes = '1';
   List<OptionPayanteCheck> optionPayanteChecks = [];
+  List<int> nbPersonnesList = List.generate(8, (index) => index + 1);
+  int selectedNbPersonnes = 1;
 
   var format = NumberFormat('### €');
 
   @override
   Widget build(BuildContext context) {
-    // _loadOptionPayantes();
+    _loadOptionPayantes();
     return Scaffold(
       appBar: AppBar(
         title: Text('Reservation'),
@@ -35,24 +38,40 @@ class _ResaLocationState extends State<ResaLocation> {
       body: ListView(
         padding: EdgeInsets.all(4.0),
         children: [
-          // _buildResume(),
+          _buildResume(),
           _buildDates(),
           _buildNbPersonnes(),
-          // _buildOptionsPayantes(context),
+          _buildOptionsPayantes(context),
           TotalWidget(
             prixTotal: 600,
           ),
-          // _buildRentButton(),
+          _buildRentButton(),
         ],
       ),
     );
   }
 
-  // _loadOptionPayantes() {
-  // }
+  _loadOptionPayantes() {
+    optionPayanteChecks = widget.habitation.optionspayantes
+        .map((option) => OptionPayanteCheck(option.id, option.libelle, false,
+            description: option.description, prix: option.prix))
+        .toList();
+  }
 
-  // _buildResume() {
-  // }
+  _buildResume() {
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      child: ListTile(
+        tileColor: white,
+        leading: const Icon(Icons.home),
+        title: Text(widget.habitation.libelle),
+        subtitle: Text(widget.habitation.adresse),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+    );
+  }
 
   _buildDates() {
     return Center(
@@ -124,22 +143,20 @@ class _ResaLocationState extends State<ResaLocation> {
   }
 
   _buildNbPersonnes() {
-    List<int> nbPersonnesList = List.generate(8, (index) => index + 1);
-
-    int selectedNbPersonnes = 1;
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
-          Text('Nombre de personnes'),
-          SizedBox(width: 10),
+          const Text('Nombre de personnes'),
+          const SizedBox(width: 10),
           DropdownButton<int>(
             value: selectedNbPersonnes,
             onChanged: (value) {
               print('Selected Number of Persons: $value');
               if (value != null) {
-                selectedNbPersonnes = value;
+                setState(() {
+                  selectedNbPersonnes = value;
+                });
               }
             },
             items: nbPersonnesList.map((int nbPersonnes) {
@@ -154,11 +171,55 @@ class _ResaLocationState extends State<ResaLocation> {
     );
   }
 
-  // _buildOptionsPayantes(BuildContext context) {
-  // }
+  _buildOptionsPayantes(BuildContext context) {
+    return Column(
+      children: optionPayanteChecks
+          .map((option) => CheckboxListTile(
+                title: Text(option.libelle),
+                subtitle: Text(option.description),
+                value: option.checked,
+                onChanged: (bool? value) {
+                  if (value != null) {
+                    setState(() {
+                      option.checked = value;
+                    });
+                  }
+                },
+                secondary: Text(format.format(option.prix)),
+              ))
+          .toList(),
+    );
+  }
 
-  // _buildRentButton() {
-  // }
+  _buildRentButton() {
+    return Container(
+      margin: const EdgeInsets.only(top: 16.0),
+      decoration: BoxDecoration(
+        color: darkBlue,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextButton(
+              onPressed: () {
+                // Handle button press
+                print('Louer Button Pressed');
+              },
+              child: Text(
+                'Louer',
+                style: TextStyle(
+                  color: Colors.white, // white text color
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class TotalWidget extends StatelessWidget {
