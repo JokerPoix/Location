@@ -74,7 +74,7 @@ class _ResaLocationState extends State<ResaLocation> {
                 ),
               ],
             ),
-            CircleAvatar(
+            const CircleAvatar(
               radius: 25,
               backgroundColor: darkBlue,
               child: Icon(
@@ -84,14 +84,14 @@ class _ResaLocationState extends State<ResaLocation> {
             ),
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.calendar_today,
                   color: darkBlue,
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 8.0),
                 Text(
-                  '${_formatDate(dateFin)}',
-                  style: TextStyle(color: darkBlue),
+                  _formatDate(dateFin),
+                  style: const TextStyle(color: darkBlue),
                 ),
               ],
             ),
