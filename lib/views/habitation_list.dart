@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:location/models/habitation.dart';
 import 'package:location/services/habitation_service.dart';
 import 'package:location/views/habitation_details.dart';
+import 'package:location/views/share/bottom_navigation_bar_widget.dart';
 import 'package:location/views/share/habitation_features_widget.dart';
 import 'package:location/views/share/habitation_option.dart';
 
@@ -18,6 +19,7 @@ class HabitationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBarWidget(1),
       appBar: AppBar(
         title:
             Text("Liste des ${this.isHouseList ? 'maisons' : 'appartements'}"),

@@ -8,6 +8,11 @@ import 'package:location/share/location_text_style.dart';
 import 'package:location/views/habitation_details.dart';
 import 'package:location/views/habitation_list.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:location/views/location_list.dart';
+import 'package:location/views/login_page.dart';
+import 'package:location/views/profil.dart';
+import 'package:location/views/share/bottom_navigation_bar_widget.dart';
+import 'package:location/views/validation_location.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,14 +25,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Locations',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Mes locations'),
-      localizationsDelegates: [GlobalMaterialLocalizations.delegate],
-      supportedLocales: const [Locale('en'), Locale('fr')],
-    );
+        title: 'Locations',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(title: 'Mes locations'),
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate
+        ],
+        supportedLocales: const [
+          Locale('en'),
+          Locale('fr')
+        ],
+        routes: {
+          Profil.routeName: (context) => const Profil('/profil'),
+          LoginPage.routeName: (context) => const LoginPage('/'),
+          LocationList.routeName: (context) =>
+              const LocationList('/location_list'),
+          ValidationLocation.routeName: (context) =>
+              const ValidationLocation('/validation_location'),
+        });
   }
 }
 
@@ -44,6 +61,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBarWidget(1),
       appBar: AppBar(
         title: Text(title),
       ),
