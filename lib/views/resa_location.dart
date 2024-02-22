@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:location/colors.dart';
 import 'package:location/models/habitation.dart';
+import 'package:location/views/login_page.dart';
 
 class ResaLocation extends StatefulWidget {
   final Habitation habitation;
@@ -29,8 +30,13 @@ class _ResaLocationState extends State<ResaLocation> {
   var format = NumberFormat('### €');
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _loadOptionPayantes();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Reservation'),
@@ -43,12 +49,26 @@ class _ResaLocationState extends State<ResaLocation> {
           _buildNbPersonnes(),
           _buildOptionsPayantes(context),
           TotalWidget(
-            prixTotal: 600,
+            prixTotal: calculateTotalPrice(),
           ),
           _buildRentButton(),
         ],
       ),
     );
+  }
+
+  double calculateTotalPrice() {
+    int numberOfNights = dateFin.difference(dateDebut).inDays;
+    double pricePerNight = widget.habitation.prixmois / 30;
+    double totalPrice = numberOfNights * pricePerNight * selectedNbPersonnes;
+
+    for (var option in optionPayanteChecks) {
+      if (option.checked) {
+        totalPrice += option.prix;
+      }
+    }
+
+    return totalPrice;
   }
 
   _loadOptionPayantes() {
@@ -203,8 +223,16 @@ class _ResaLocationState extends State<ResaLocation> {
           Expanded(
             child: TextButton(
               onPressed: () {
-                // Handle button press
-                print('Louer Button Pressed');
+                // if (isLoggedIn) {
+                //   // Validate rent form
+                // } else {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => LoginPage('Réservation'),
+                //     ),
+                //   );
+                // }
               },
               child: Text(
                 'Louer',

@@ -1,6 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:locations/models/user.dart';
+import 'package:location/models/user.dart';
 
 import 'register_page.dart';
 
@@ -27,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
