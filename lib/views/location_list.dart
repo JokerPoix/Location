@@ -65,7 +65,7 @@ class _LocationListState extends State<LocationList> {
             child: Column(
               children: [
                 ListTile(
-                  title: Text(location.id.toString()),
+                  title: Text(location.habitation?.libelle ?? 'N/A'),
                   subtitle: Text(
                       'Dates : ${location.dateDebut} - ${location.dateFin}'),
                 ),
