@@ -15,6 +15,7 @@ import 'package:location/views/share/bottom_navigation_bar_widget.dart';
 import 'package:location/views/validation_location.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
