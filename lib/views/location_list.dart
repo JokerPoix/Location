@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:location/models/habitation.dart';
 import 'package:location/models/location.dart';
+import 'package:location/services/habitation_service.dart';
 import 'package:location/services/location_service.dart';
 import 'package:location/views/share/bottom_navigation_bar_widget.dart';
 
@@ -38,6 +40,7 @@ class _LocationListState extends State<LocationList> {
         child: FutureBuilder(
           future: _locations,
           builder: (context, snapshot) {
+            print(snapshot.data?.map((message) => message.idhabitation));
             if (!snapshot.hasData) {
               return const CircularProgressIndicator();
             } else {
@@ -65,9 +68,14 @@ class _LocationListState extends State<LocationList> {
             child: Column(
               children: [
                 ListTile(
-                  title: Text(location.habitation?.libelle ?? 'N/A'),
+                  title: Text(HabitationService()
+                      .getHabitationDetailsById(location.idhabitation)
+                      .libelle),
                   subtitle: Text(
                       'Dates : ${location.dateDebut} - ${location.dateFin}'),
+                  trailing: Text(HabitationService()
+                      .getHabitationDetailsById(location.idhabitation)
+                      .adresse),
                 ),
               ],
             ),
