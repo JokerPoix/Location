@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:location/colors.dart';
 import 'package:location/models/location.dart';
 import 'package:location/services/habitation_service.dart';
 import 'package:location/services/location_service.dart';
@@ -56,31 +58,85 @@ class _LocationListState extends State<LocationList> {
     );
   }
 
+  String _formatDate(DateTime date) {
+    return DateFormat('dd MMM yyyy', 'fr_FR').format(date);
+  }
+
   _buildRow(Location location, BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(4.0),
-      child: Column(children: [
-        SizedBox(
-          height: 150,
-          width: MediaQuery.of(context).size.width,
-          child: (Card(
-            child: Column(
-              children: [
-                ListTile(
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: ListTile(
                   title: Text(HabitationService()
                       .getHabitationDetailsById(location.idhabitation)
                       .libelle),
-                  subtitle: Text(
-                      'Dates : ${location.dateDebut} - ${location.dateFin}'),
-                  trailing: Text(HabitationService()
+                  subtitle: Text(HabitationService()
                       .getHabitationDetailsById(location.idhabitation)
                       .adresse),
                 ),
-              ],
-            ),
-          )),
-        )
-      ]),
+              ),
+              Text('${location.montanttotal} €',
+                  style: const TextStyle(fontSize: 20)),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(children: [
+                  const Icon(
+                    Icons.calendar_today,
+                    color: darkBlue,
+                  ),
+                  const SizedBox(width: 8.0),
+                  Text(
+                    _formatDate(location.dateDebut),
+                    style: const TextStyle(color: darkBlue, fontSize: 18),
+                  ),
+                ]),
+              ),
+              const CircleAvatar(
+                radius: 25,
+                backgroundColor: darkBlue,
+                child: Icon(
+                  Icons.arrow_right_alt,
+                  color: Colors.white,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.calendar_today,
+                      color: darkBlue,
+                    ),
+                    const SizedBox(width: 8.0),
+                    Text(
+                      _formatDate(location.dateFin),
+                      style: const TextStyle(color: darkBlue, fontSize: 18),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Text(
+          location.facture != null
+              ? 'Facture délivrée le ${_formatDate(location.facture!.date)}'
+              : 'Aucune facture',
+        ),
+      ],
     );
   }
 }
