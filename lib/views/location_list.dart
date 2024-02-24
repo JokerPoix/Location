@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:location/models/habitation.dart';
 import 'package:location/models/location.dart';
 import 'package:location/services/habitation_service.dart';
 import 'package:location/services/location_service.dart';

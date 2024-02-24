@@ -39,7 +39,7 @@ class _ResaLocationState extends State<ResaLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBarWidget(3),
+      bottomNavigationBar: BottomNavigationBarWidget(2),
       appBar: AppBar(
         title: Text('Reservation'),
       ),
@@ -63,6 +63,9 @@ class _ResaLocationState extends State<ResaLocation> {
     int numberOfNights = dateFin.difference(dateDebut).inDays;
     double pricePerNight = widget.habitation.prixmois / 30;
     double totalPrice = numberOfNights * pricePerNight * selectedNbPersonnes;
+    if (numberOfNights == 0) {
+      return 0.0;
+    }
 
     for (var option in optionPayanteChecks) {
       if (option.checked) {
