@@ -5,6 +5,7 @@ import 'package:location/share/location_style.dart';
 import 'package:location/share/location_text_style.dart';
 import 'package:location/views/resa_location.dart';
 import 'package:location/views/share/bottom_navigation_bar_widget.dart';
+import 'package:location/views/share/custom_app_bar.dart';
 import 'package:location/views/share/habitation_features_widget.dart';
 import 'package:location/views/share/habitation_option.dart';
 
@@ -20,9 +21,7 @@ class _HabitationDetailsState extends State<HabitationDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget._habitation.libelle),
-      ),
+      appBar: CustomAppBar(titleContent: widget._habitation.libelle),
       bottomNavigationBar: BottomNavigationBarWidget(2),
       body: ListView(
         padding: EdgeInsets.all(4.0),

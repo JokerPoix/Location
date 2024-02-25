@@ -4,6 +4,7 @@ import 'package:location/colors.dart';
 import 'package:location/models/habitation.dart';
 import 'package:location/views/login_page.dart';
 import 'package:location/views/share/bottom_navigation_bar_widget.dart';
+import 'package:location/views/share/custom_app_bar.dart';
 
 class ResaLocation extends StatefulWidget {
   final Habitation habitation;
@@ -40,9 +41,7 @@ class _ResaLocationState extends State<ResaLocation> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBarWidget(2),
-      appBar: AppBar(
-        title: Text('Reservation'),
-      ),
+      appBar: const CustomAppBar(titleContent: 'Réservations'),
       body: ListView(
         padding: EdgeInsets.all(4.0),
         children: [

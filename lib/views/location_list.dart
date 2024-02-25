@@ -5,6 +5,7 @@ import 'package:location/models/location.dart';
 import 'package:location/services/habitation_service.dart';
 import 'package:location/services/location_service.dart';
 import 'package:location/views/share/bottom_navigation_bar_widget.dart';
+import 'package:location/views/share/custom_app_bar.dart';
 
 class LocationListArgument {
   final String routeNameNext;
@@ -34,9 +35,7 @@ class _LocationListState extends State<LocationList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mes Locations'),
-      ),
+      appBar: const CustomAppBar(titleContent: 'Mes locations'),
       body: Center(
         child: FutureBuilder(
           future: _locations,
@@ -64,6 +63,8 @@ class _LocationListState extends State<LocationList> {
 
   _buildRow(Location location, BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -80,8 +81,12 @@ class _LocationListState extends State<LocationList> {
                       .adresse),
                 ),
               ),
-              Text('${location.montanttotal} €',
-                  style: const TextStyle(fontSize: 20)),
+              Padding(
+                padding: const EdgeInsets.only(right: 50),
+                child: Text('${location.montanttotal.toInt()} €',
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
             ],
           ),
         ),
@@ -131,10 +136,14 @@ class _LocationListState extends State<LocationList> {
             ],
           ),
         ),
-        Text(
-          location.facture != null
-              ? 'Facture délivrée le ${_formatDate(location.facture!.date)}'
-              : 'Aucune facture',
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Text(
+            location.facture != null
+                ? 'Facture délivrée le ${_formatDate(location.facture!.date)}'
+                : 'Aucune facture',
+            textAlign: TextAlign.start,
+          ),
         ),
       ],
     );
