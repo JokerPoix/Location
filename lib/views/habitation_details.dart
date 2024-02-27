@@ -7,7 +7,6 @@ import 'package:location/views/resa_location.dart';
 import 'package:location/views/share/bottom_navigation_bar_widget.dart';
 import 'package:location/views/share/custom_app_bar.dart';
 import 'package:location/views/share/habitation_features_widget.dart';
-import 'package:location/views/share/habitation_option.dart';
 
 class HabitationDetails extends StatefulWidget {
   final Habitation _habitation;

@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: MyHomePage(title: 'Mes locations'),
+        // ignore: prefer_const_literals_to_create_immutables
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate
         ],
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class MyHomePage extends StatelessWidget {
   final HabitationService service = HabitationService();
   final String title;

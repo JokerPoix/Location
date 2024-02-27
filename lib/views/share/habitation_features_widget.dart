@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:location/models/habitation.dart';
-import 'package:location/services/habitation_service.dart';
 import 'package:location/views/share/habitation_option.dart';
 
 class HabitationFeaturesWidget extends StatelessWidget {
   final Habitation _habitation;
+  // ignore: use_super_parameters
   const HabitationFeaturesWidget(this._habitation, {Key? key})
       : super(key: key);
 

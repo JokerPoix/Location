@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:location/colors.dart';
 import 'package:location/models/habitation.dart';
-import 'package:location/views/login_page.dart';
 import 'package:location/views/share/bottom_navigation_bar_widget.dart';
 import 'package:location/views/share/custom_app_bar.dart';
 

@@ -4,6 +4,7 @@ import 'package:location/views/profil.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   final int indexSelected;
+  // ignore: use_super_parameters
   const BottomNavigationBarWidget(this.indexSelected, {Key? key})
       : super(key: key);
 

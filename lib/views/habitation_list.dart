@@ -6,12 +6,13 @@ import 'package:location/views/habitation_details.dart';
 import 'package:location/views/share/bottom_navigation_bar_widget.dart';
 import 'package:location/views/share/custom_app_bar.dart';
 import 'package:location/views/share/habitation_features_widget.dart';
-import 'package:location/views/share/habitation_option.dart';
 
+// ignore: must_be_immutable
 class HabitationList extends StatelessWidget {
   final HabitationService service = HabitationService();
   late List<Habitation> _habitations;
   final bool isHouseList;
+  // ignore: use_super_parameters
   HabitationList(this.isHouseList, {Key? key}) : super(key: key) {
     _habitations =
         isHouseList ? service.getMaisons() : service.getAppartements();
